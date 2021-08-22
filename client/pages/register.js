@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
     //console.table({ name, email, password });
     try {
-      const { data } = await axios.post(`http://localhost:8000/api/register`, {
+      const { data } = await axios.post(`/api/register`, {
         name,
         email,
         password,
