@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from 'axios';
 import { toast } from "react-toastify";
+import { SyncOutlined } from "@ant-design/icons";
 
 const Register = () => {
   const [name, setName] = useState("Moon");
   const [email, setEmail] = useState("nmn.nguyet@gmail.com");
   const [password, setPassword] = useState("123456");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,8 +20,10 @@ const Register = () => {
       });
       // console.log("REGISTER RESPONSE", data);
       toast("Registration successful. Please login.");
+      setLoading(false);
     } catch (err) {
       toast(err.response.data);
+      setLoading(false);
     }
   };
   
@@ -55,8 +59,12 @@ const Register = () => {
             required
           />
 
-          <button type="submit" className="btn btn-block btn-primary">
-            Submit
+          <button 
+            type="submit" 
+            className="btn btn-block btn-primary"
+            disabled={!name || !email || !password || loading}
+            >
+            {loading ? <SyncOutlined spin /> : "Submit"}
           </button>
         </form>
       </div>
