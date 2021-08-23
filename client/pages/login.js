@@ -28,13 +28,13 @@ const Login = () => {
 
   return (
     <>
-      <h1 className="jumbotron text-center bg-primary square">Login</h1>
+      <h1 className="p-5 mb-4 bg-light rounded-3 text-center square">Login</h1>
 
       <div className="container col-md-4 offset-md-4 pb-5">
         <form onSubmit={handleSubmit}>
           <input
             type="email"
-            className="form-control mb-4 p-4"
+            className="form-control mb-4 p-2"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter email"
@@ -43,7 +43,7 @@ const Login = () => {
 
           <input
             type="password"
-            className="form-control mb-4 p-4"
+            className="form-control mb-4 p-2"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
@@ -52,7 +52,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="btn btn-block btn-primary"
+            className="btn btn-block btn-primary form-control"
             disabled={!email || !password || loading}
           >
             {loading ? <SyncOutlined spin /> : "Submit"}

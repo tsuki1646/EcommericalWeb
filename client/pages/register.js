@@ -62,7 +62,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="btn btn-block btn-primary"
+            className="btn btn-block btn-primary form-control"
             disabled={!name || !email || !password || loading}
           >
             {loading ? <SyncOutlined spin /> : "Submit"}
