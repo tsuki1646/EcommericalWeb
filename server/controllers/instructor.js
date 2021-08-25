@@ -1,6 +1,7 @@
 import User from "../models/user";
-import stripe from "stripe";
+//import stripe from "stripe";
 import queryString from "query-string";
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 export const makeInstructor = async (req, res) => {
   try {
@@ -14,7 +15,7 @@ export const makeInstructor = async (req, res) => {
       user.save();
     }
     // 3. create account link based on account id (for frontend to complete onboarding)
-    const accountLink = await stripe.accountLinks.create({
+    let accountLink = await stripe.accountLinks.create({
       account: user.stripe_account_id,
       refresh_url: process.env.STRIPE_REDIRECT_URL,
       return_url: process.env.STRIPE_REDIRECT_URL,
@@ -29,5 +30,18 @@ export const makeInstructor = async (req, res) => {
     res.send(`${accountLink.url}?${queryString.stringify(accountLink)}`);
   } catch (err) {
     console.log("MAKE INSTRUCTOR ERR ", err);
+  }
+};
+
+export const currentInstructor = async (req, res) => {
+  try {
+    let user = await User.findById(req.user._id).select("-password").exec();
+    if (!user.role.includes("Instructor")) {
+      return res.status(403);
+    } else {
+      res.json({ ok: true });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };

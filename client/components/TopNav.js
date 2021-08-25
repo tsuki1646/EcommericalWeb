@@ -49,7 +49,7 @@ const TopNav = () => {
         </Link>
       </Item>
 
-      {user && user.role && user.role.includes("Instructor") ? (
+      {user && user.role && !user.role.includes("Instructor") ? (
         <Item
           key="/instructor/course/create"
           onClick={(e) => setCurrent(e.key)}
