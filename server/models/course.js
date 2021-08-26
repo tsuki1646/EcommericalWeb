@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Schema;
 
@@ -71,3 +71,4 @@ const courseSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("Course", courseSchema);
+//module.exports = mongoose.model("Course", courseSchema);
