@@ -37,7 +37,8 @@ const InstructorIndex = () => {
                 <div className="row">
                   <div className="col">
                     <Link
-                      href={`/instructor/course/view/${course._id}`}
+                      href={`/instructor/course/view/${course.slug}`}
+                      //href={`/instructor/course/view/${course._id}`}
                       className="pointer"
                     >
                       <a className="mt-2 text-primary">
