@@ -11,39 +11,40 @@ const awsConfig = {
 const S3 = new AWS.S3(awsConfig);
 
 export const uploadImage = async (req, res) => {
-    console.log(req.body);
-    // try {
-    //     const { image } = req.body;
-    //     if (!image) return res.status(400).send("No image");
+    //console.log(req.body);
+    try {
+        const { image } = req.body;
+        if (!image) return res.status(400).send("No image");
 
-    //     // prepare the image
-    //     const base64Data = new Buffer.from(
-    //     image.replace(/^data:image\/\w+;base64,/, ""),
-    //     "base64"
-    //     );
+        // prepare the image
+        const base64Data = new Buffer.from(
+            image.replace(/^data:image\/\w+;base64,/, ""),
+            "base64"
+        );
 
-    //     const type = image.split(";")[0].split("/")[1];
+        //to get format jpeg
+        const type = image.split(";")[0].split("/")[1];
 
-    //     // image params
-    //     const params = {
-    //     Bucket: "edemy-bucket",
-    //     Key: `${nanoid()}.${type}`,
-    //     Body: base64Data,
-    //     ACL: "public-read",
-    //     ContentEncoding: "base64",
-    //     ContentType: `image/${type}`,
-    //     };
+        // image params
+        const params = {
+            Bucket: "moon-bucket",
+            Key: `${nanoid()}.${type}`,
+            Body: base64Data,
+            ACL: "public-read",
+            ContentEncoding: "base64",
+            ContentType: `image/${type}`,
+        };
 
-    //     // upload to s3
-    //     S3.upload(params, (err, data) => {
-    //     if (err) {
-    //         console.log(err);
-    //         return res.sendStatus(400);
-    //     }
-    //     console.log(data);
-    //     res.send(data);
-    //     });
-    // } catch (err) {
-    //     console.log(err);
-    // }
+        // upload to s3
+        S3.upload(params, (err, data) => {
+            if (err) {
+                console.log(err);
+                return res.sendStatus(400);
+            }
+            console.log(data);
+            res.send(data);
+            });
+    } catch (err) {
+        console.log(err);
+    }
 };
